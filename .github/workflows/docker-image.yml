@@ -46,4 +46,10 @@ jobs:
             sudo docker stop product-service-container || true
             sudo docker rm product-service-container || true
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/product-service:latest
-            sudo docker run -d --name product-service-container -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/product-service:latest
+            sudo docker run -d \
+              --name product-service-container \
+              -p 8080:8080 \
+              -e RDS_USERNAME="${{ secrets.RDS_USERNAME }}" \
+              -e RDS_PASSWORD="${{ secrets.RDS_PASSWORD }}" \
+              -e SPRING_PROFILES_ACTIVE="rds" \
+              ${{ secrets.DOCKERHUB_USERNAME }}/product-service:latest
