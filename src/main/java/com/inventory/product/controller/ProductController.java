@@ -2,6 +2,7 @@ package com.inventory.product.controller;
 
 import com.inventory.product.model.Product;
 import com.inventory.product.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
+@Slf4j
 public class ProductController {
 
     @Autowired
@@ -19,6 +21,7 @@ public class ProductController {
     // GET: Retrieve all products
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
+        log.info("Getting All products");
         List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
